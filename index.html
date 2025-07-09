@@ -552,10 +552,34 @@
         // ===================================================================
         // 配置区域 - 请修改以下变量以连接您的Notion数据库
         // ===================================================================
-        const NOTION_API_KEY = "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"; // 替换为您的Notion API密钥
+        const PROXY_URL = "https://cgmjb-gg3aevhle-rui2.vercel.app"; // 替换为实际代理URL
         const PLAYER_DB_ID = "22bf05c8880280afb387cdb7b7f27793"; // 替换为选手数据库ID
         const TEAM_DB_ID = "22bf05c88802803b8246e1aa6161cf4e"; // 替换为队伍数据库ID
-        const NOTION_VERSION = "2022-06-28"; // Notion API版本
+        
+        // 获取Notion数据（通过代理）
+        async function fetchNotionData(databaseId, body) {
+            try {
+                const response = await fetch(PROXY_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        databaseId,
+                        body
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`API请求失败: ${response.status}`);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('代理请求错误:', error);
+                throw error;
+            }
+        }
         // ===================================================================
         
         // 切换标签页功能
@@ -609,8 +633,31 @@
             }
             
             // 调用API查询选手
-            fetchPlayerData(playerId);
-        });
+            // 修改后的选手查询函数
+        async function fetchPlayerData(playerId) {
+            try {
+                const data = await fetchNotionData(PLAYER_DB_ID, {
+                    filter: {
+                        property: "ID",
+                        rich_text: {
+                            equals: playerId
+                        }
+                    }
+                });
+                
+                if (data.results.length === 0) {
+                    throw new Error('未找到该选手');
+                }
+                
+                const player = processPlayerData(data.results[0]);
+                displayPlayerData(player);
+                showNotification(`成功加载 ${player.name} 的数据`);
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification(error.message || '查询失败', true);
+            } finally {
+                document.getElementById('player-loader').style.display = 'none';
+            }
         
         // 从Notion获取选手数据
         function fetchPlayerData(playerId) {
@@ -684,9 +731,26 @@
             }
             
             // 调用API获取队伍排名
-            fetchTeamRanking();
+           // 修改后的队伍排名函数
+        async function fetchTeamRanking() {
+            try {
+                const data = await fetchNotionData(TEAM_DB_ID, {
+                    sorts: [{
+                        property: "TotalScore",
+                        direction: "descending"
+                    }]
+                });
+                
+                const teams = data.results.map(processTeamData);
+                displayTeamRanking(teams);
+                showNotification(`成功加载 ${teams.length} 支队伍数据`);
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification(error.message || '加载队伍排名失败', true);
+            } finally {
+                document.getElementById('team-loader').style.display = 'none';
+            }
         }
-        
         // 从Notion获取队伍排名
         function fetchTeamRanking() {
             fetch(`https://api.notion.com/v1/databases/${TEAM_DB_ID}/query`, {
