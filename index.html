@@ -1,1 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>选手数据榜单</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>第五人格选手数据榜单</h1>
+    
+    <!-- 总排名区 -->
+    <section id="leaderboard">
+      <h2>选手总排名</h2>
+      <table id="ranking-table">
+        <thead>
+          <tr>
+            <th>排名</th>
+            <th>选手</th>
+            <th>角色</th>
+            <th>场次</th>
+            <th>积分</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 数据由JS填充 -->
+        </tbody>
+      </table>
+    </section>
 
+    <!-- 查询区 -->
+    <section id="query-section">
+      <h2>选手详细数据查询</h2>
+      <form id="player-form">
+        <input type="text" id="player-name" placeholder="输入选手名称" required>
+        <button type="submit">查询</button>
+      </form>
+      
+      <div id="result-container" class="hidden">
+        <h3 id="result-title"></h3>
+        <table id="detail-table">
+          <!-- 数据由JS动态生成 -->
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
