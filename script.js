@@ -1,6 +1,6 @@
 // Notion API配置
-const NOTION_API_KEY = 'YOUR_NOTION_API_KEY';
-const DATABASE_ID = 'YOUR_DATABASE_ID';
+const NOTION_API_KEY = 'secret_ntn_6452153753858VLROFsS4XVRsD4zbZ9ZERDCmSrVBJi2a4';
+const DATABASE_ID = '22bf05c8880280afb387cdb7b7f2779322bf05c8880280238b32000c48f4173c';
 
 // 获取Notion数据
 async function fetchNotionData() {
