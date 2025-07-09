@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>赛事数据榜单系统 - 自定义API版</title>
+    <title>赛事数据榜单系统 - GitHub托管版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -17,8 +17,6 @@
             --info: #4895ef;
             --dark-bg: #0f172a;
             --card-bg: rgba(15, 23, 42, 0.7);
-            --custom-blue: #4a6fff;
-            --custom-green: #2ecc71;
         }
         
         * {
@@ -325,7 +323,7 @@
             border-top: 1px solid #334155;
         }
         
-        .custom-badge {
+        .notion-badge {
             background: rgba(255,255,255,0.1);
             padding: 5px 15px;
             border-radius: 20px;
@@ -391,72 +389,6 @@
             margin: 2px 0;
         }
         
-        .custom-logo {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--custom-blue), var(--custom-green));
-            color: white;
-            padding: 3px 8px;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-left: 5px;
-        }
-        
-        .api-config-panel {
-            background: rgba(30, 41, 59, 0.8);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-        
-        .api-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .api-form input {
-            background: rgba(15, 23, 42, 0.7);
-        }
-        
-        .api-form button {
-            grid-column: span 2;
-        }
-        
-        .api-status-indicator {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-        
-        .status-connected {
-            background-color: var(--custom-green);
-            box-shadow: 0 0 8px var(--custom-green);
-        }
-        
-        .status-disconnected {
-            background-color: var(--danger);
-        }
-        
-        .api-test-result {
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 8px;
-            background: rgba(15, 23, 42, 0.6);
-            font-family: monospace;
-            max-height: 200px;
-            overflow-y: auto;
-            display: none;
-        }
-        
-        .api-test-result pre {
-            white-space: pre-wrap;
-            word-break: break-all;
-        }
-        
         @media (max-width: 768px) {
             .search-container {
                 flex-direction: column;
@@ -474,14 +406,6 @@
             h1 {
                 font-size: 2.2rem;
             }
-            
-            .api-form {
-                grid-template-columns: 1fr;
-            }
-            
-            .api-form button {
-                grid-column: span 1;
-            }
         }
     </style>
 </head>
@@ -492,14 +416,13 @@
                 <i class="fas fa-trophy"></i>
                 <span>赛事数据榜单系统</span>
             </div>
-            <h1>自定义API版 <span class="custom-logo">API</span></h1>
-            <p class="subtitle">轻松配置您自己的API端点，展示选手数据和队伍排名</p>
+            <h1>GitHub托管版</h1>
+            <p class="subtitle">连接Notion数据库，展示选手数据和队伍排名</p>
         </header>
         
         <div class="tabs">
             <button class="tab-btn active" data-tab="player">选手查询</button>
             <button class="tab-btn" data-tab="team">队伍排名</button>
-            <button class="tab-btn" data-tab="api">API配置</button>
         </div>
         
         <!-- 选手查询面板 -->
@@ -517,15 +440,6 @@
                     <button id="search-player">
                         <i class="fas fa-search"></i> 查询选手
                     </button>
-                    <button id="example-player">
-                        <i class="fas fa-magic"></i> 示例
-                    </button>
-                </div>
-                
-                <div class="api-status">
-                    <div class="status-indicator active" id="player-status"></div>
-                    <span>API状态: <span id="player-api-status">就绪</span></span>
-                    <span id="current-api-url" style="margin-left: 15px; color: #94a3b8; font-size: 0.9rem;"></span>
                 </div>
                 
                 <div class="loader" id="player-loader">
@@ -590,12 +504,6 @@
                 
                 <p>队伍综合排名数据：</p>
                 
-                <div class="api-status">
-                    <div class="status-indicator active" id="team-status"></div>
-                    <span>API状态: <span id="team-api-status">就绪</span></span>
-                    <span id="current-team-api-url" style="margin-left: 15px; color: #94a3b8; font-size: 0.9rem;"></span>
-                </div>
-                
                 <div class="loader" id="team-loader">
                     <div class="loader-spinner"></div>
                     <p>正在加载队伍排名...</p>
@@ -619,71 +527,19 @@
             </div>
         </div>
         
-        <!-- API配置面板 -->
-        <div class="tab-content" id="api-tab">
-            <div class="card">
-                <div class="card-title">
-                    <i class="fas fa-cog"></i>
-                    <h2>API配置</h2>
-                </div>
-                
-                <p>在此配置您自己的API端点：</p>
-                
-                <div class="api-config-panel">
-                    <div class="api-status">
-                        <span>当前API连接状态: </span>
-                        <span id="api-connection-status">
-                            <span class="api-status-indicator status-disconnected"></span>
-                            <span>未连接</span>
-                        </span>
-                    </div>
-                    
-                    <div class="api-form">
-                        <div>
-                            <label for="player-api-url">选手API URL:</label>
-                            <input type="text" id="player-api-url" placeholder="https://api.example.com/players">
-                        </div>
-                        
-                        <div>
-                            <label for="team-api-url">队伍API URL:</label>
-                            <input type="text" id="team-api-url" placeholder="https://api.example.com/teams">
-                        </div>
-                        
-                        <div>
-                            <label for="api-auth-key">认证密钥 (可选):</label>
-                            <input type="text" id="api-auth-key" placeholder="Bearer token或API密钥">
-                        </div>
-                        
-                        <button id="save-api-config">
-                            <i class="fas fa-save"></i> 保存API配置
-                        </button>
-                    </div>
-                    
-                    <div class="config-hint">
-                        <p><i class="fas fa-info-circle"></i> <strong>配置说明：</strong></p>
-                        <ul>
-                            <li>选手API应接受<code>?id=选手ID</code>参数并返回JSON格式选手数据</li>
-                            <li>队伍API应返回JSON格式的队伍排名数据数组</li>
-                            <li>如果需要认证，请提供认证密钥（将添加到请求头）</li>
-                        </ul>
-                    </div>
-                    
-                    <button id="test-api-connection" style="margin-top: 20px;">
-                        <i class="fas fa-plug"></i> 测试API连接
-                    </button>
-                    
-                    <div class="api-test-result" id="api-test-result">
-                        <pre>测试结果将显示在这里...</pre>
-                    </div>
-                </div>
-            </div>
+        <div class="config-hint">
+            <p><i class="fas fa-info-circle"></i> <strong>配置说明：</strong> 要连接您的Notion数据库，请修改代码中的以下变量：</p>
+            <p><code>const NOTION_API_KEY = "YOUR_NOTION_API_KEY";</code></p>
+            <p><code>const PLAYER_DB_ID = "YOUR_PLAYER_DATABASE_ID";</code></p>
+            <p><code>const TEAM_DB_ID = "YOUR_TEAM_DATABASE_ID";</code></p>
+            <p>这些变量位于JavaScript部分的顶部。请替换为您的实际Notion API密钥和数据库ID。</p>
         </div>
         
         <div class="footer">
-            <p>数据来源: 自定义API服务 | © 2023 赛事数据榜单系统</p>
-            <div class="custom-badge">
-                <i class="fas fa-code"></i>
-                <span>支持自定义API配置</span>
+            <p>数据来源: Notion数据库 | GitHub托管 | © 2023 赛事数据榜单系统</p>
+            <div class="notion-badge">
+                <i class="fas fa-database"></i>
+                <span>Powered by Notion API</span>
             </div>
         </div>
     </div>
@@ -693,44 +549,14 @@
     </div>
 
     <script>
-        // 默认API端点配置
-        let apiConfig = {
-            playerApi: "https://esports-leaderboard-api.vercel.app/api/player",
-            teamApi: "https://esports-leaderboard-api.vercel.app/api/team",
-            authKey: ""
-        };
-        
-        // 从本地存储加载配置
-        function loadApiConfig() {
-            const savedConfig = localStorage.getItem('apiConfig');
-            if (savedConfig) {
-                apiConfig = JSON.parse(savedConfig);
-                document.getElementById('player-api-url').value = apiConfig.playerApi;
-                document.getElementById('team-api-url').value = apiConfig.teamApi;
-                document.getElementById('api-auth-key').value = apiConfig.authKey;
-                
-                updateApiUrlDisplay();
-            }
-        }
-        
-        // 保存配置到本地存储
-        function saveApiConfig() {
-            apiConfig = {
-                playerApi: document.getElementById('player-api-url').value || "https://esports-leaderboard-api.vercel.app/api/player",
-                teamApi: document.getElementById('team-api-url').value || "https://esports-leaderboard-api.vercel.app/api/team",
-                authKey: document.getElementById('api-auth-key').value
-            };
-            
-            localStorage.setItem('apiConfig', JSON.stringify(apiConfig));
-            showNotification('API配置已保存');
-            updateApiUrlDisplay();
-        }
-        
-        // 更新页面上的API URL显示
-        function updateApiUrlDisplay() {
-            document.getElementById('current-api-url').textContent = `使用API: ${apiConfig.playerApi}`;
-            document.getElementById('current-team-api-url').textContent = `使用API: ${apiConfig.teamApi}`;
-        }
+        // ===================================================================
+        // 配置区域 - 请修改以下变量以连接您的Notion数据库
+        // ===================================================================
+        const NOTION_API_KEY = "YOUR_NOTION_API_KEY"; // 替换为您的Notion API密钥
+        const PLAYER_DB_ID = "YOUR_PLAYER_DATABASE_ID"; // 替换为选手数据库ID
+        const TEAM_DB_ID = "YOUR_TEAM_DATABASE_ID"; // 替换为队伍数据库ID
+        const NOTION_VERSION = "2022-06-28"; // Notion API版本
+        // ===================================================================
         
         // 切换标签页功能
         document.querySelectorAll('.tab-btn').forEach(button => {
@@ -746,11 +572,6 @@
                 // 如果是队伍标签且未加载过数据，则加载队伍数据
                 if (button.dataset.tab === 'team' && !document.querySelector('#team-ranking tbody').innerHTML) {
                     loadTeamRanking();
-                }
-                
-                // 如果是API标签，更新连接状态
-                if (button.dataset.tab === 'api') {
-                    updateConnectionStatus();
                 }
             });
         });
@@ -780,63 +601,73 @@
             document.getElementById('player-loader').style.display = 'block';
             document.getElementById('player-detail').style.display = 'none';
             
+            // 检查API配置
+            if (NOTION_API_KEY.includes("YOUR_") || PLAYER_DB_ID.includes("YOUR_")) {
+                document.getElementById('player-loader').style.display = 'none';
+                showNotification('请配置Notion API信息', true);
+                return;
+            }
+            
             // 调用API查询选手
             fetchPlayerData(playerId);
         });
         
-        // 示例按钮功能
-        document.getElementById('example-player').addEventListener('click', () => {
-            const examples = ['PLR-001', 'PLR-002', 'PLR-003', 'PLR-004'];
-            const randomId = examples[Math.floor(Math.random() * examples.length)];
-            document.getElementById('player-id').value = randomId;
-            showNotification(`已填入示例ID: ${randomId}`);
-        });
-        
-        // 保存API配置
-        document.getElementById('save-api-config').addEventListener('click', saveApiConfig);
-        
-        // 测试API连接
-        document.getElementById('test-api-connection').addEventListener('click', testApiConnection);
-        
-        // 从API获取选手数据
+        // 从Notion获取选手数据
         function fetchPlayerData(playerId) {
-            // 更新API状态
-            updateApiStatus('player', 'loading', '请求中...');
-            
-            // 构建请求头
-            const headers = {};
-            if (apiConfig.authKey) {
-                headers['Authorization'] = apiConfig.authKey;
-            }
-            
-            // 发起API请求
-            fetch(`${apiConfig.playerApi}?id=${playerId}`, { headers })
+            fetch(`https://api.notion.com/v1/databases/${PLAYER_DB_ID}/query`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${NOTION_API_KEY}`,
+                    'Notion-Version': NOTION_VERSION,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    filter: {
+                        property: "ID",
+                        rich_text: {
+                            equals: playerId
+                        }
+                    }
+                })
+            })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`API请求失败: ${response.status} ${response.statusText}`);
+                    throw new Error('API请求失败: ' + response.status);
                 }
                 return response.json();
             })
             .then(data => {
-                if (data.error) {
-                    throw new Error(data.error);
+                if (data.results.length === 0) {
+                    throw new Error('未找到该选手');
                 }
                 
-                displayPlayerData(data);
-                showNotification(`成功加载 ${data.name} 的数据`);
-                updateApiStatus('player', 'success', '数据加载完成');
+                const player = processPlayerData(data.results[0]);
+                displayPlayerData(player);
+                showNotification(`成功加载 ${player.name} 的数据`);
             })
             .catch(error => {
                 console.error('Error:', error);
                 showNotification(error.message || '查询失败', true);
-                updateApiStatus('player', 'error', '请求失败');
             })
             .finally(() => {
                 document.getElementById('player-loader').style.display = 'none';
-                setTimeout(() => {
-                    updateApiStatus('player', 'ready', '就绪');
-                }, 2000);
             });
+        }
+        
+        // 处理选手数据
+        function processPlayerData(notionData) {
+            const properties = notionData.properties;
+            
+            return {
+                id: properties.ID?.title[0]?.plain_text || "N/A",
+                name: properties.Name?.rich_text[0]?.plain_text || "未知选手",
+                team: properties.Team?.select?.name || "未分配队伍",
+                totalScore: properties.TotalScore?.number || 0,
+                matches: properties.Matches?.number || 0,
+                winRate: properties.WinRate?.number || 0,
+                avgScore: properties.AvgScore?.number || 0,
+                performance: properties.Performance?.relation || []
+            };
         }
         
         // 加载队伍排名
@@ -845,150 +676,64 @@
             document.getElementById('team-loader').style.display = 'block';
             document.querySelector('#team-ranking tbody').innerHTML = '';
             
-            // 更新API状态
-            updateApiStatus('team', 'loading', '加载中...');
+            // 检查API配置
+            if (NOTION_API_KEY.includes("YOUR_") || TEAM_DB_ID.includes("YOUR_")) {
+                document.getElementById('team-loader').style.display = 'none';
+                showNotification('请配置Notion API信息', true);
+                return;
+            }
             
             // 调用API获取队伍排名
             fetchTeamRanking();
         }
         
-        // 从API获取队伍排名
+        // 从Notion获取队伍排名
         function fetchTeamRanking() {
-            // 构建请求头
-            const headers = {};
-            if (apiConfig.authKey) {
-                headers['Authorization'] = apiConfig.authKey;
-            }
-            
-            // 发起API请求
-            fetch(apiConfig.teamApi, { headers })
+            fetch(`https://api.notion.com/v1/databases/${TEAM_DB_ID}/query`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${NOTION_API_KEY}`,
+                    'Notion-Version': NOTION_VERSION,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    sorts: [{
+                        property: "TotalScore",
+                        direction: "descending"
+                    }]
+                })
+            })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`API请求失败: ${response.status} ${response.statusText}`);
+                    throw new Error('API请求失败: ' + response.status);
                 }
                 return response.json();
             })
             .then(data => {
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-                
-                displayTeamRanking(data);
-                showNotification(`成功加载 ${data.length} 支队伍数据`);
-                updateApiStatus('team', 'success', '数据加载完成');
+                const teams = data.results.map(processTeamData);
+                displayTeamRanking(teams);
+                showNotification(`成功加载 ${teams.length} 支队伍数据`);
             })
             .catch(error => {
                 console.error('Error:', error);
                 showNotification(error.message || '加载队伍排名失败', true);
-                updateApiStatus('team', 'error', '请求失败');
             })
             .finally(() => {
                 document.getElementById('team-loader').style.display = 'none';
-                setTimeout(() => {
-                    updateApiStatus('team', 'ready', '就绪');
-                }, 2000);
             });
         }
         
-        // 测试API连接
-        function testApiConnection() {
-            const resultDiv = document.getElementById('api-test-result');
-            resultDiv.style.display = 'block';
-            resultDiv.querySelector('pre').textContent = "测试中...";
+        // 处理队伍数据
+        function processTeamData(notionData) {
+            const properties = notionData.properties;
             
-            // 测试选手API
-            fetch(apiConfig.playerApi)
-            .then(response => {
-                const playerResult = {
-                    url: apiConfig.playerApi,
-                    status: response.status,
-                    statusText: response.statusText,
-                    headers: [...response.headers].map(([key, value]) => `${key}: ${value}`).join('\n')
-                };
-                
-                // 测试队伍API
-                return fetch(apiConfig.teamApi)
-                .then(teamResponse => {
-                    const teamResult = {
-                        url: apiConfig.teamApi,
-                        status: teamResponse.status,
-                        statusText: teamResponse.statusText,
-                        headers: [...teamResponse.headers].map(([key, value]) => `${key}: ${value}`).join('\n')
-                    };
-                    
-                    return { playerResult, teamResult };
-                });
-            })
-            .then(({ playerResult, teamResult }) => {
-                const resultText = `选手API测试结果:
-URL: ${playerResult.url}
-状态: ${playerResult.status} ${playerResult.statusText}
-响应头:
-${playerResult.headers}
-
-队伍API测试结果:
-URL: ${teamResult.url}
-状态: ${teamResult.status} ${teamResult.statusText}
-响应头:
-${teamResult.headers}`;
-                
-                resultDiv.querySelector('pre').textContent = resultText;
-                updateConnectionStatus();
-            })
-            .catch(error => {
-                resultDiv.querySelector('pre').textContent = `测试失败: ${error.message}`;
-            });
-        }
-        
-        // 更新API连接状态显示
-        function updateConnectionStatus() {
-            const statusElement = document.getElementById('api-connection-status');
-            const indicator = statusElement.querySelector('.api-status-indicator');
-            const text = statusElement.querySelector('span:last-child');
-            
-            // 模拟连接状态检查
-            const isConnected = Math.random() > 0.3; // 70%几率显示连接成功
-            
-            if (isConnected) {
-                indicator.className = 'api-status-indicator status-connected';
-                text.textContent = '已连接';
-                text.style.color = '#2ecc71';
-            } else {
-                indicator.className = 'api-status-indicator status-disconnected';
-                text.textContent = '未连接';
-                text.style.color = '#f72585';
-            }
-        }
-        
-        // 更新API状态显示
-        function updateApiStatus(type, status, message) {
-            const statusElement = document.getElementById(`${type}-status`);
-            const textElement = document.getElementById(`${type}-api-status`);
-            
-            statusElement.className = 'status-indicator';
-            
-            switch(status) {
-                case 'ready':
-                    statusElement.classList.add('active');
-                    textElement.textContent = '就绪';
-                    textElement.style.color = '#94a3b8';
-                    break;
-                case 'loading':
-                    statusElement.style.background = '#FBBF24';
-                    textElement.textContent = message;
-                    textElement.style.color = '#FBBF24';
-                    break;
-                case 'success':
-                    statusElement.style.background = '#10B981';
-                    textElement.textContent = message;
-                    textElement.style.color = '#10B981';
-                    break;
-                case 'error':
-                    statusElement.style.background = '#EF4444';
-                    textElement.textContent = message;
-                    textElement.style.color = '#EF4444';
-                    break;
-            }
+            return {
+                name: properties.Name?.title[0]?.plain_text || "未知队伍",
+                totalScore: properties.TotalScore?.number || 0,
+                matches: properties.Matches?.number || 0,
+                avgScore: properties.AvgScore?.number || 0,
+                winRate: properties.WinRate?.number || 0
+            };
         }
         
         // 显示选手数据
@@ -1002,20 +747,15 @@ ${teamResult.headers}`;
             document.getElementById('win-rate').textContent = `${player.winRate}%`;
             document.getElementById('avg-score').textContent = player.avgScore.toFixed(1);
             
-            // 填充表现数据
+            // 填充表现数据 - 实际实现需要获取关联数据
             const tbody = document.getElementById('performance-data');
-            tbody.innerHTML = '';
-            
-            player.performance.forEach(perf => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${perf.event}</td>
-                    <td>${perf.score}</td>
-                    <td>${perf.rank}</td>
-                    <td>${perf.date}</td>
-                `;
-                tbody.appendChild(tr);
-            });
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="4" style="text-align: center; padding: 30px; color: #94a3b8;">
+                        <i class="fas fa-info-circle"></i> 实际实现中这里会显示选手的近期表现
+                    </td>
+                </tr>
+            `;
             
             document.getElementById('player-detail').style.display = 'block';
         }
@@ -1047,23 +787,13 @@ ${teamResult.headers}`;
         
         // 初始化页面
         document.addEventListener('DOMContentLoaded', () => {
-            // 加载保存的API配置
-            loadApiConfig();
-            
             // 默认显示队伍排名数据
             loadTeamRanking();
             
-            // 设置初始API状态
-            updateApiStatus('player', 'ready', '就绪');
-            updateApiStatus('team', 'ready', '就绪');
-            
-            // 更新API URL显示
-            updateApiUrlDisplay();
-            
-            // 显示欢迎消息
-            setTimeout(() => {
-                showNotification('欢迎使用自定义API版赛事数据系统');
-            }, 1000);
+            // 检查配置
+            if (NOTION_API_KEY.includes("YOUR_") || PLAYER_DB_ID.includes("YOUR_") || TEAM_DB_ID.includes("YOUR_")) {
+                showNotification('请配置Notion API信息', true);
+            }
         });
     </script>
 </body>
