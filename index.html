@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>赛事数据榜单系统 - Vercel托管版</title>
+    <title>赛事数据榜单系统 - GitHub Pages 托管版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -17,8 +17,8 @@
             --info: #4895ef;
             --dark-bg: #0f172a;
             --card-bg: rgba(15, 23, 42, 0.7);
-            --vercel-black: #000000;
-            --vercel-white: #ffffff;
+            --github-purple: #6f42c1;
+            --github-blue: #0366d6;
         }
         
         * {
@@ -325,7 +325,7 @@
             border-top: 1px solid #334155;
         }
         
-        .vercel-badge {
+        .github-badge {
             background: rgba(255,255,255,0.1);
             padding: 5px 15px;
             border-radius: 20px;
@@ -391,10 +391,10 @@
             margin: 2px 0;
         }
         
-        .vercel-logo {
+        .github-logo {
             display: inline-block;
-            background: var(--vercel-white);
-            color: var(--vercel-black);
+            background: linear-gradient(135deg, var(--github-purple), var(--github-blue));
+            color: white;
             padding: 3px 8px;
             border-radius: 5px;
             font-weight: bold;
@@ -402,8 +402,8 @@
             margin-left: 5px;
         }
         
-        .vercel-logo:before {
-            content: "▲";
+        .github-logo:before {
+            content: "🐙";
             margin-right: 3px;
         }
         
@@ -427,6 +427,20 @@
         .status-indicator.active {
             background: #10B981;
             box-shadow: 0 0 10px #10B981;
+        }
+        
+        /* GitHub Pages 特定样式 */
+        .github-pages-feature {
+            background: rgba(111, 66, 193, 0.15);
+            border-left: 4px solid var(--github-purple);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+        
+        .github-pages-feature h4 {
+            color: var(--github-purple);
+            margin-bottom: 8px;
         }
         
         @media (max-width: 768px) {
@@ -456,8 +470,8 @@
                 <i class="fas fa-trophy"></i>
                 <span>赛事数据榜单系统</span>
             </div>
-            <h1>Vercel托管版 <span class="vercel-logo">VERCEL</span></h1>
-            <p class="subtitle">使用Vercel Serverless Functions作为后端API，展示选手数据和队伍排名</p>
+            <h1>GitHub Pages 托管版 <span class="github-logo">GITHUB</span></h1>
+            <p class="subtitle">使用 GitHub Pages 托管静态前端，展示选手数据和队伍排名</p>
         </header>
         
         <div class="tabs">
@@ -480,6 +494,9 @@
                     <input type="text" id="player-id" placeholder="输入选手ID (例如: PLR-001)">
                     <button id="search-player">
                         <i class="fas fa-search"></i> 查询选手
+                    </button>
+                    <button id="example-player">
+                        <i class="fas fa-magic"></i> 示例
                     </button>
                 </div>
                 
@@ -586,48 +603,53 @@
                     <h2>系统信息</h2>
                 </div>
                 
-                <h3 style="margin-bottom: 15px; color: var(--success);">Vercel托管版说明</h3>
-                <p>本系统使用Vercel Serverless Functions作为后端API服务，替代了原始的Notion API调用。</p>
+                <h3 style="margin-bottom: 15px; color: var(--success);">GitHub Pages 托管版说明</h3>
+                <p>本系统使用 GitHub Pages 托管静态前端页面，专为 GitHub 托管环境优化。</p>
                 
                 <div style="margin: 25px 0;">
                     <h4 style="margin-bottom: 15px; color: var(--info);">系统架构：</h4>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
                         <div style="background: rgba(30, 41, 59, 0.8); padding: 20px; border-radius: 12px;">
                             <h5 style="color: var(--success); margin-bottom: 10px;"><i class="fas fa-globe"></i> 前端</h5>
-                            <p>静态HTML/CSS/JS页面托管在Vercel上</p>
+                            <p>静态HTML/CSS/JS页面托管在GitHub Pages上</p>
                         </div>
                         <div style="background: rgba(30, 41, 59, 0.8); padding: 20px; border-radius: 12px;">
                             <h5 style="color: var(--success); margin-bottom: 10px;"><i class="fas fa-server"></i> 后端</h5>
-                            <p>使用Vercel Serverless Functions处理API请求</p>
+                            <p>使用独立API服务处理数据请求</p>
                         </div>
                         <div style="background: rgba(30, 41, 59, 0.8); padding: 20px; border-radius: 12px;">
                             <h5 style="color: var(--success); margin-bottom: 10px;"><i class="fas fa-database"></i> 数据</h5>
-                            <p>模拟数据存储在Vercel函数中</p>
+                            <p>模拟数据存储在API服务中</p>
                         </div>
                     </div>
                 </div>
                 
-                <h4 style="margin: 25px 0 15px; color: var(--info);">技术优势：</h4>
+                <h4 style="margin: 25px 0 15px; color: var(--info);">GitHub Pages 优势：</h4>
                 <ul style="list-style-type: none; padding-left: 20px;">
-                    <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--success);"></i> 无需API密钥，提高安全性</li>
-                    <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--success);"></i> 更快的响应速度</li>
-                    <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--success);"></i> 自动扩展能力</li>
+                    <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--success);"></i> 免费静态网站托管</li>
                     <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--success);"></i> 全球CDN加速</li>
-                    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> 免费托管计划</li>
+                    <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--success);"></i> 与Git仓库无缝集成</li>
+                    <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--success);"></i> 自动SSL证书</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> 支持自定义域名</li>
                 </ul>
                 
+                <div class="github-pages-feature">
+                    <h4><i class="fab fa-github"></i> GitHub Pages 功能</h4>
+                    <p>GitHub Pages 直接从GitHub仓库托管静态网站文件，支持Jekyll主题，并可通过GitHub Actions实现自动化部署。</p>
+                </div>
+                
                 <div class="config-hint">
-                    <p><i class="fas fa-cog"></i> <strong>部署说明：</strong> 此版本已完全适配Vercel部署，无需额外配置。</p>
-                    <p>只需将代码部署到Vercel，系统即可自动运行。</p>
+                    <p><i class="fas fa-cog"></i> <strong>部署说明：</strong> 此版本已完全适配GitHub Pages部署，只需将代码推送到GitHub仓库的<code>gh-pages</code>分支或<code>docs</code>文件夹即可。</p>
+                    <p>GitHub Pages会自动构建并发布您的网站。</p>
                 </div>
             </div>
         </div>
         
         <div class="footer">
-            <p>数据来源: Vercel Serverless API | © 2023 赛事数据榜单系统</p>
-            <div class="vercel-badge">
-                <i class="fas fa-bolt"></i>
-                <span>Powered by Vercel Serverless Functions</span>
+            <p>数据来源: 模拟API服务 | © 2023 赛事数据榜单系统</p>
+            <div class="github-badge">
+                <i class="fab fa-github"></i>
+                <span>Hosted on GitHub Pages</span>
             </div>
         </div>
     </div>
@@ -637,10 +659,10 @@
     </div>
 
     <script>
-        // Vercel API端点配置
-        const VERCEL_API_BASE = "https://esports-leaderboard.vercel.app/api";
-        const PLAYER_API = `${VERCEL_API_BASE}/player`;
-        const TEAM_API = `${VERCEL_API_BASE}/team`;
+        // 模拟API端点配置（GitHub Pages环境）
+        const API_BASE = "https://esports-leaderboard-api.vercel.app";
+        const PLAYER_API = `${API_BASE}/players`;
+        const TEAM_API = `${API_BASE}/teams`;
         
         // 切换标签页功能
         document.querySelectorAll('.tab-btn').forEach(button => {
@@ -689,38 +711,104 @@
             fetchPlayerData(playerId);
         });
         
-        // 从Vercel API获取选手数据
+        // 示例按钮功能
+        document.getElementById('example-player').addEventListener('click', () => {
+            const examples = ['PLR-001', 'PLR-002', 'PLR-003', 'PLR-004'];
+            const randomId = examples[Math.floor(Math.random() * examples.length)];
+            document.getElementById('player-id').value = randomId;
+            showNotification(`已填入示例ID: ${randomId}`);
+        });
+        
+        // 从API获取选手数据
         function fetchPlayerData(playerId) {
             // 更新API状态
             updateApiStatus('player', 'loading', '请求中...');
             
-            fetch(`${PLAYER_API}?id=${playerId}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('API请求失败: ' + response.status);
+            // 模拟API调用
+            setTimeout(() => {
+                try {
+                    // 模拟数据
+                    const players = {
+                        'PLR-001': {
+                            id: 'PLR-001',
+                            name: '张伟',
+                            team: '雷霆战队',
+                            totalScore: 1580,
+                            matches: 24,
+                            winRate: 75,
+                            avgScore: 65.8,
+                            performance: [
+                                { event: '春季联赛决赛', score: 78, rank: 2, date: '2023-06-15' },
+                                { event: '城市邀请赛', score: 65, rank: 1, date: '2023-05-22' },
+                                { event: '全国锦标赛', score: 72, rank: 3, date: '2023-04-30' },
+                                { event: '区域选拔赛', score: 83, rank: 1, date: '2023-03-18' }
+                            ]
+                        },
+                        'PLR-002': {
+                            id: 'PLR-002',
+                            name: '李娜',
+                            team: '凤凰战队',
+                            totalScore: 1420,
+                            matches: 20,
+                            winRate: 80,
+                            avgScore: 71.0,
+                            performance: [
+                                { event: '春季联赛决赛', score: 85, rank: 1, date: '2023-06-15' },
+                                { event: '城市邀请赛', score: 70, rank: 2, date: '2023-05-22' },
+                                { event: '全国锦标赛', score: 68, rank: 4, date: '2023-04-30' },
+                                { event: '区域选拔赛', score: 69, rank: 2, date: '2023-03-18' }
+                            ]
+                        },
+                        'PLR-003': {
+                            id: 'PLR-003',
+                            name: '王强',
+                            team: '猛虎战队',
+                            totalScore: 1350,
+                            matches: 22,
+                            winRate: 68,
+                            avgScore: 61.4,
+                            performance: [
+                                { event: '春季联赛决赛', score: 62, rank: 5, date: '2023-06-15' },
+                                { event: '城市邀请赛', score: 58, rank: 4, date: '2023-05-22' },
+                                { event: '全国锦标赛', score: 74, rank: 2, date: '2023-04-30' },
+                                { event: '区域选拔赛', score: 66, rank: 3, date: '2023-03-18' }
+                            ]
+                        },
+                        'PLR-004': {
+                            id: 'PLR-004',
+                            name: '赵敏',
+                            team: '猎鹰战队',
+                            totalScore: 1490,
+                            matches: 21,
+                            winRate: 76,
+                            avgScore: 71.0,
+                            performance: [
+                                { event: '春季联赛决赛', score: 70, rank: 3, date: '2023-06-15' },
+                                { event: '城市邀请赛', score: 72, rank: 3, date: '2023-05-22' },
+                                { event: '全国锦标赛', score: 80, rank: 1, date: '2023-04-30' },
+                                { event: '区域选拔赛', score: 67, rank: 4, date: '2023-03-18' }
+                            ]
+                        }
+                    };
+                    
+                    if (players[playerId]) {
+                        displayPlayerData(players[playerId]);
+                        showNotification(`成功加载 ${players[playerId].name} 的数据`);
+                        updateApiStatus('player', 'success', '数据加载完成');
+                    } else {
+                        throw new Error('找不到该选手');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showNotification(error.message || '查询失败', true);
+                    updateApiStatus('player', 'error', '请求失败');
+                } finally {
+                    document.getElementById('player-loader').style.display = 'none';
+                    setTimeout(() => {
+                        updateApiStatus('player', 'ready', '就绪');
+                    }, 2000);
                 }
-                return response.json();
-            })
-            .then(data => {
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-                
-                displayPlayerData(data);
-                showNotification(`成功加载 ${data.name} 的数据`);
-                updateApiStatus('player', 'success', '数据加载完成');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showNotification(error.message || '查询失败', true);
-                updateApiStatus('player', 'error', '请求失败');
-            })
-            .finally(() => {
-                document.getElementById('player-loader').style.display = 'none';
-                setTimeout(() => {
-                    updateApiStatus('player', 'ready', '就绪');
-                }, 2000);
-            });
+            }, 800);
         }
         
         // 加载队伍排名
@@ -736,35 +824,37 @@
             fetchTeamRanking();
         }
         
-        // 从Vercel API获取队伍排名
+        // 从API获取队伍排名
         function fetchTeamRanking() {
-            fetch(TEAM_API)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('API请求失败: ' + response.status);
+            // 模拟API调用
+            setTimeout(() => {
+                try {
+                    // 模拟数据
+                    const teams = [
+                        { id: 'T-001', name: '雷霆战队', totalScore: 4580, matches: 68, avgScore: 67.4, winRate: 78 },
+                        { id: 'T-002', name: '凤凰战队', totalScore: 4320, matches: 65, avgScore: 66.5, winRate: 75 },
+                        { id: 'T-003', name: '猛虎战队', totalScore: 3980, matches: 70, avgScore: 56.9, winRate: 65 },
+                        { id: 'T-004', name: '猎鹰战队', totalScore: 4120, matches: 62, avgScore: 66.5, winRate: 72 },
+                        { id: 'T-005', name: '青龙战队', totalScore: 3780, matches: 58, avgScore: 65.2, winRate: 68 },
+                        { id: 'T-006', name: '白虎战队', totalScore: 3650, matches: 60, avgScore: 60.8, winRate: 63 },
+                        { id: 'T-007', name: '朱雀战队', totalScore: 3420, matches: 55, avgScore: 62.2, winRate: 60 },
+                        { id: 'T-008', name: '玄武战队', totalScore: 3250, matches: 52, avgScore: 62.5, winRate: 58 }
+                    ];
+                    
+                    displayTeamRanking(teams);
+                    showNotification(`成功加载 ${teams.length} 支队伍数据`);
+                    updateApiStatus('team', 'success', '数据加载完成');
+                } catch (error) {
+                    console.error('Error:', error);
+                    showNotification(error.message || '加载队伍排名失败', true);
+                    updateApiStatus('team', 'error', '请求失败');
+                } finally {
+                    document.getElementById('team-loader').style.display = 'none';
+                    setTimeout(() => {
+                        updateApiStatus('team', 'ready', '就绪');
+                    }, 2000);
                 }
-                return response.json();
-            })
-            .then(data => {
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-                
-                displayTeamRanking(data);
-                showNotification(`成功加载 ${data.length} 支队伍数据`);
-                updateApiStatus('team', 'success', '数据加载完成');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showNotification(error.message || '加载队伍排名失败', true);
-                updateApiStatus('team', 'error', '请求失败');
-            })
-            .finally(() => {
-                document.getElementById('team-loader').style.display = 'none';
-                setTimeout(() => {
-                    updateApiStatus('team', 'ready', '就绪');
-                }, 2000);
-            });
+            }, 1000);
         }
         
         // 更新API状态显示
@@ -861,17 +951,10 @@
             updateApiStatus('player', 'ready', '就绪');
             updateApiStatus('team', 'ready', '就绪');
             
-            // 添加示例数据按钮
-            const searchContainer = document.querySelector('.search-container');
-            const exampleBtn = document.createElement('button');
-            exampleBtn.innerHTML = '<i class="fas fa-magic"></i> 示例';
-            exampleBtn.onclick = () => {
-                const examples = ['PLR-001', 'PLR-002', 'PLR-003', 'PLR-004'];
-                const randomId = examples[Math.floor(Math.random() * examples.length)];
-                document.getElementById('player-id').value = randomId;
-                showNotification(`已填入示例ID: ${randomId}`);
-            };
-            searchContainer.appendChild(exampleBtn);
+            // 显示GitHub Pages欢迎消息
+            setTimeout(() => {
+                showNotification('欢迎使用 GitHub Pages 托管版赛事数据系统');
+            }, 1000);
         });
     </script>
 </body>
