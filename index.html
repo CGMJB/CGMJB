@@ -595,60 +595,7 @@
         <span id="notification-text"></span>
     </div>
 
-    <script>
-        // 模拟数据
-        const mockPlayers = [
-            {
-                id: "PLR-001",
-                name: "张伟",
-                team: "雷霆战队",
-                totalScore: 2450,
-                matches: 15,
-                winRate: 78,
-                avgScore: 163.3,
-                performance: [
-                    { event: "春季联赛", score: 185, rank: 3, date: "2023-05-12" },
-                    { event: "城市杯", score: 210, rank: 1, date: "2023-04-28" },
-                    { event: "友谊赛", score: 155, rank: 5, date: "2023-04-15" }
-                ]
-            },
-            {
-                id: "PLR-002",
-                name: "李娜",
-                team: "风暴战队",
-                totalScore: 1980,
-                matches: 12,
-                winRate: 65,
-                avgScore: 165.0,
-                performance: [
-                    { event: "春季联赛", score: 175, rank: 4, date: "2023-05-12" },
-                    { event: "城市杯", score: 190, rank: 2, date: "2023-04-28" }
-                ]
-            },
-            {
-                id: "PLR-003",
-                name: "王明",
-                team: "烈焰战队",
-                totalScore: 3120,
-                matches: 20,
-                winRate: 85,
-                avgScore: 156.0,
-                performance: [
-                    { event: "春季联赛", score: 205, rank: 1, date: "2023-05-12" },
-                    { event: "城市杯", score: 195, rank: 3, date: "2023-04-28" },
-                    { event: "友谊赛", score: 180, rank: 2, date: "2023-04-15" }
-                ]
-            }
-        ];
-        
-        const mockTeams = [
-            { name: "雷霆战队", totalScore: 12450, matches: 42, avgScore: 296.4, winRate: 72 },
-            { name: "风暴战队", totalScore: 11870, matches: 38, avgScore: 312.4, winRate: 68 },
-            { name: "烈焰战队", totalScore: 11080, matches: 40, avgScore: 277.0, winRate: 65 },
-            { name: "疾风战队", totalScore: 9800, matches: 36, avgScore: 272.2, winRate: 60 },
-            { name: "星耀战队", totalScore: 8450, matches: 32, avgScore: 264.1, winRate: 58 }
-        ];
-
+    
         // 切换标签页功能
         document.querySelectorAll('.tab-btn').forEach(button => {
             button.addEventListener('click', () => {
